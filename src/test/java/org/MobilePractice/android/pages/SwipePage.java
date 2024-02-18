@@ -1,6 +1,7 @@
 package org.MobilePractice.android.pages;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -14,9 +15,9 @@ import java.util.List;
 
 public class SwipePage {
 
-    private final AndroidDriver driver;
+    private final AppiumDriver driver;
 
-    public SwipePage(AndroidDriver driver) {
+    public SwipePage(AppiumDriver driver) {
         this.driver = driver;
         HomePage homePage = new HomePage(this.driver);
         homePage.openMenu("Swipe");

@@ -1,8 +1,7 @@
-package org.MobilePractice.android.pages;
+package org.MobilePractice.ios.pages;
 
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
@@ -10,39 +9,38 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Collections;
 
-public class DragDropPage {
+public class DragPage {
 
-    private final AppiumDriver driver;
-    public DragDropPage(AppiumDriver driver) {
+    private final IOSDriver driver;
+
+    public DragPage(IOSDriver driver) {
         this.driver = driver;
-        HomePage homePage = new HomePage(this.driver);
+
+        HomePage homePage = new HomePage(driver);
         homePage.openMenu("Drag");
     }
 
-    private WebElement successMessage() {
-        return driver.findElement(AppiumBy.androidUIAutomator
-                ("new UiSelector().text(\"You made it, click retry if you want to try it again.\")"));
-    }
 
-    private void dragPiece(WebElement piece, WebElement location) {
-        Point pieceLocation = getLocation(piece);
-        Point targetLocation = getLocation(location);
+    private void dragAndDrop(WebElement piece, WebElement location) {
+        Point source = getElementCenter(piece);
+        Point target = getElementCenter(location);
 
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence dragAndDrop = new Sequence(finger,1);
-        dragAndDrop.addAction(finger.createPointerMove(Duration.ofMillis(0),PointerInput.Origin.viewport(),pieceLocation.x, pieceLocation.y));
+        dragAndDrop.addAction(finger.createPointerMove(Duration.ofMillis(0),PointerInput.Origin.viewport(),source.x, source.y));
         dragAndDrop.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         dragAndDrop.addAction(new Pause(finger, Duration.ofMillis(600)));
-        dragAndDrop.addAction(finger.createPointerMove(Duration.ofMillis(600),PointerInput.Origin.viewport(),targetLocation.x,targetLocation.y));
+        dragAndDrop.addAction(finger.createPointerMove(Duration.ofMillis(600),PointerInput.Origin.viewport(),target.x,target.y));
         dragAndDrop.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-        driver.perform(List.of(dragAndDrop));
+        driver.perform(Collections.singletonList(dragAndDrop));
     }
 
-    private Point getLocation(WebElement element) {
+    private Point getElementCenter(WebElement element) {
         var location = element.getLocation();
         var size = element.getSize();
+
         return new Point(location.getX() + (size.getWidth()/2), location.getY() + (size.getHeight()/2));
     }
 
@@ -118,21 +116,24 @@ public class DragDropPage {
         return driver.findElement(AppiumBy.accessibilityId("drop-r3"));
     }
 
+    public String getCongratsMessage() {
+        return driver.findElement(AppiumBy.iOSClassChain("**/XCUIElementTypeStaticText[`label == \"Congratulations\"`]"))
+                .getText();
+    }
     public void dragAndDropPieces() {
-        dragPiece(topLeftPiece(), topLeftLocation());
-        dragPiece(middleTopPiece(), middleTopLocation());
-        dragPiece(topRightPiece(), topRightLocation());
-        dragPiece(middleLeftPiece(), middleLeftLocation());
-        dragPiece(middlePiece(), middleLocation());
-        dragPiece(middleRightPiece(), middleRightLocation());
-        dragPiece(bottomLeftPiece(), bottomLeftLocation());
-        dragPiece(middleBottomPiece(), middleBottomLocation());
-        dragPiece(bottomRightPiece(), bottomRightLocation());
+        HomePage homePage = new HomePage(driver);
+        homePage.openMenu("Drag");
+
+
+        dragAndDrop(topLeftPiece(), topLeftLocation());
+        dragAndDrop(middleLeftPiece(),middleLeftLocation());
+        dragAndDrop(bottomLeftPiece(),bottomLeftLocation());
+        dragAndDrop(middleTopPiece(),middleTopLocation());
+        dragAndDrop(middlePiece(),middleLocation());
+        dragAndDrop(middleBottomPiece(),middleBottomLocation());
+        dragAndDrop(topRightPiece(),topRightLocation());
+        dragAndDrop(middleRightPiece(),middleRightLocation());
+        dragAndDrop(bottomRightPiece(),bottomRightLocation());
+
     }
-
-    public String getSuccessMessageText() {
-        return successMessage().getText();
-    }
-
-
 }

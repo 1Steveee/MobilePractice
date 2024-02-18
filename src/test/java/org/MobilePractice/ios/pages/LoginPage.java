@@ -40,6 +40,11 @@ public class LoginPage {
     private WebElement successMessageCloseButton() {
         return driver.findElement(AppiumBy.accessibilityId("OK"));
     }
+
+    private void clickSuccessCloseButton() {
+        successMessageCloseButton().click();
+    }
+
     public String getSuccessMessage() {
         return successMessage().getText();
     }
@@ -60,9 +65,11 @@ public class LoginPage {
 
 
     public void closeSuccessMessage() {
+        clickSuccessCloseButton();
         driver.hideKeyboard();
-        successMessageCloseButton().click();
-        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.invisibilityOf(successMessageCloseButton()));
+
+        if (successMessageCloseButton().isEnabled()) {
+            clickSuccessCloseButton();
+        }
     }
 }

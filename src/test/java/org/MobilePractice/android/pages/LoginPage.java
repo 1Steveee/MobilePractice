@@ -1,13 +1,14 @@
 package org.MobilePractice.android.pages;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage {
 
-    private final AndroidDriver driver;
-    public LoginPage(AndroidDriver driver) {
+    private final AppiumDriver driver;
+    public LoginPage(AppiumDriver driver) {
         this.driver = driver;
     }
 

@@ -1,9 +1,12 @@
 package org.MobilePractice;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
-import io.appium.java_client.remote.AutomationName;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -11,41 +14,67 @@ import static java.time.Duration.*;
 
 public class AndroidDriverManager {
 
-    private AndroidDriver androidDriver;
-    private final String APP_PATH = System.getProperty ("user.home") + "//Downloads//android.wdio.native.app.v1.0.8.apk";
+    private AppiumDriver appiumDriver;
+    private final String deviceId;
+
+    public AndroidDriverManager(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    private DesiredCapabilities getDesiredCapabilities() {
+        final DesiredCapabilities capabilities = new DesiredCapabilities();
+
+        try (FileInputStream fis = new FileInputStream("src/test/resources/androidDevicesConfig.json")) {
+            final var objectMapper = new ObjectMapper();
+            final JsonNode jsonNode = objectMapper.readValue(fis, JsonNode.class);
+
+            final var devices = jsonNode.get("androidDevices").elements();
+
+            devices.forEachRemaining(device -> {
+                if (device.get("id").asText().equals(deviceId)) {
+                    final var deviceProperties = device.fields();
+
+                    deviceProperties.forEachRemaining(property -> {
+                        if (!property.getKey().equals("id")) {
+                            capabilities.setCapability(property.getKey(), property.getValue().asText());
+                        }
+                    });
+                }
+            });
+
+            final var commonProperties = jsonNode.fields();
+
+            commonProperties.forEachRemaining(commonProp -> {
+                if (!commonProp.getKey().equals("androidDevices")) {
+                    capabilities.setCapability(commonProp.getKey(),commonProp.getValue().asText());
+                }
+            });
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
-    private UiAutomator2Options uiAutomator2Options () {
-
-        UiAutomator2Options uiAutomator2Options;
-        uiAutomator2Options = new UiAutomator2Options ()
-                .setDeviceName ("Pixel_6_API_34")
-                .setAutomationName (AutomationName.ANDROID_UIAUTOMATOR2)
-                .setAvdLaunchTimeout (ofSeconds (300))
-                .setAvdReadyTimeout (ofSeconds (100))
-                .setApp (APP_PATH)
-                .setAppPackage ("com.wdiodemoapp")
-                .setAppActivity ("com.wdiodemoapp.MainActivity")
-                .setNoReset (false)
-                .setPlatformName("Android");
-        return uiAutomator2Options;
+        return capabilities;
     }
 
     public void createAndroidDriver () throws MalformedURLException {
-        androidDriver = new AndroidDriver (new URL("http://localhost:4723/"),uiAutomator2Options ());
+        appiumDriver = new AppiumDriver (new URL("http://localhost:4723/"), getDesiredCapabilities());
         setupDriverTimeouts();
     }
 
+
+
     public void stopDriver() {
-        androidDriver.quit();
+        appiumDriver.quit();
     }
 
-    public AndroidDriver getDriver() {
-        return androidDriver;
+    public AppiumDriver getDriver() {
+        return appiumDriver;
     }
 
     private void setupDriverTimeouts () {
-        androidDriver.manage ()
+        appiumDriver.manage ()
                 .timeouts ()
                 .implicitlyWait (ofSeconds (30));
     }

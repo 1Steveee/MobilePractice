@@ -1,13 +1,14 @@
 package org.MobilePractice.android.pages;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 public class HomePage {
 
-    private final AndroidDriver driver;
+    private final AppiumDriver driver;
 
-    public HomePage(AndroidDriver driver) {
+    public HomePage(AppiumDriver driver) {
         this.driver = driver;
     }
 

@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Appium Test">
-    <test name = "Appium Test">
-        <classes>
-            <class name="org.MobilePractice.android.AndroidTest">
-                <methods>
-                    <exclude name="testHomePageTitle"/>
-                    <exclude name="testSignUp"/>
-                    <exclude name="testLogin"/>
-                    <exclude name="testSwipeLeft"/>
-                    <include name="testSwipeUp"/>
-                    <exclude name="testDragAndDrop"/>
-                    <exclude name="testCompleteForm"/>
-                </methods>
-            </class>
-        </classes>
+    <test name = "Appium Test 1">
+        <parameter name="deviceId" value="1">
+            <classes>
+                <class name="org.MobilePractice.android.AndroidTest">
+                    <methods>
+                        <include name="testHomePageTitle"/>
+                        <include name="testSignUp"/>
+                        <include name="testLogin"/>
+                        <exclude name="testSwipeLeft"/>
+                        <exclude name="testSwipeUp"/>
+                        <exclude name="testDragAndDrop"/>
+                        <exclude name="testCompleteForm"/>
+                    </methods>
+                </class>
+            </classes>
+        </parameter>
+    </test>
+    <test name = "Appium Test 2">
+        <parameter name="deviceId" value="2">
+            <classes>
+                <class name="org.MobilePractice.android.AndroidTest">
+                    <methods>
+                        <include name="testHomePageTitle"/>
+                        <include name="testSignUp"/>
+                        <include name="testLogin"/>
+                        <exclude name="testSwipeLeft"/>
+                        <exclude name="testSwipeUp"/>
+                        <exclude name="testDragAndDrop"/>
+                        <exclude name="testCompleteForm"/>
+                    </methods>
+                </class>
+            </classes>
+        </parameter>
     </test>
 </suite>

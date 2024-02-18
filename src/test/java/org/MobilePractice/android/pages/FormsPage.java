@@ -1,14 +1,15 @@
 package org.MobilePractice.android.pages;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 
 public class FormsPage {
 
-    private final AndroidDriver driver;
+    private final AppiumDriver driver;
 
-    public FormsPage(AndroidDriver driver) {
+    public FormsPage(AppiumDriver driver) {
         this.driver = driver;
         HomePage homePage = new HomePage(this.driver);
         homePage.openMenu("Forms");

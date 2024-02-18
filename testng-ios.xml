@@ -8,6 +8,10 @@
                     <include name="testHomePageTitle"/>
                     <include name="testSignUp"/>
                     <include name="testLogin"/>
+                    <include name="testFormSignUp"/>
+                    <include name="testSwipeHorizontal"/>
+                    <include name="testWebViewPage"/>
+                    <include name="testDragAndDrop"/>
                 </methods>
             </class>
         </classes>

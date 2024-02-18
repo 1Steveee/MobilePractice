@@ -25,6 +25,8 @@ public class IOSTest extends BaseTest {
 
     @Test
     public void testSignUp() {
+        //        Use Data Faker
+//  Save global Variable
         SignUpPage signUpPage = new SignUpPage(this.driver);
         signUpPage.signUp("steven7777@gmail.com", "Test12345");
         assertEquals (signUpPage.getSuccessMessageTitle (), "Signed Up!");
@@ -38,6 +40,26 @@ public class IOSTest extends BaseTest {
         assertEquals(loginPage.getSuccessMessage(), "You are logged in!");
         loginPage.closeSuccessMessage();
     }
+
+    @Test
+    public void testFormSignUp() {
+        FormsPage formsPage = new FormsPage(this.driver);
+        formsPage.fillForm("text1234", "This app is awesome");
+        assertEquals("text1234",formsPage.getInputFieldText());
+        assertEquals("Click to turn the switch OFF", formsPage.getSwitchFieldText());
+        assertEquals("This app is awesome", formsPage.getDropdownText());
+        formsPage.submitForm();
+        assertEquals("This button is active", formsPage.getAlertMessageText());
+        formsPage.closeAlert();
+    }
+
+    @Test
+    public void testDragAndDrop() {
+        DragPage dragPage = new DragPage(driver);
+        dragPage.dragAndDropPieces();
+        assertEquals("Congratulations", dragPage.getCongratsMessage());
+    }
+
 
 
 }

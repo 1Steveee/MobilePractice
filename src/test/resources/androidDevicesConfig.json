@@ -1,0 +1,19 @@
+{
+  "appium:app": "/Users/steve/Downloads/android.wdio.native.app.v1.0.8.apk",
+  "appPackage": "com.wdiodemoapp",
+  "appActivity": "com.wdiodemoapp.MainActivity",
+  "appium:automationName": "UIAutomator2",
+  "platformName": "Android",
+  "androidDevices": [
+    {
+      "id": "1",
+      "appium:deviceName": "Pixel_4_XL_API_34",
+      "appium:platformVersion": "14"
+    },
+    {
+      "id": "2",
+      "appium:deviceName": "Pixel_3_API_31",
+      "appium:platformVersion": "12"
+    }
+  ]
+}

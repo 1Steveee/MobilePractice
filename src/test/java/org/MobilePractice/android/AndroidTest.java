@@ -1,5 +1,6 @@
 package org.MobilePractice.android;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.MobilePractice.android.pages.*;
 import org.testng.annotations.BeforeClass;
@@ -10,7 +11,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class AndroidTest extends BaseTest {
 
 
-    private AndroidDriver driver;
+    private AppiumDriver driver;
     private final String email = "randomemail@gmail.com";
     private final String password = "password123";
 //    private SwipePage swipePage;
