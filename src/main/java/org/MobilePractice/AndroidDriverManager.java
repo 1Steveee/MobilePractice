@@ -9,10 +9,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import static java.time.Duration.*;
 
 public class AndroidDriverManager {
+
+    public static String userName = "null";
+    public static String accessKey = "null";
+    public String gridURL = "@mobile-hub.lambdatest.com/wd/hub";
 
     private AppiumDriver appiumDriver;
     private final String deviceId;
@@ -23,8 +28,9 @@ public class AndroidDriverManager {
 
     private DesiredCapabilities getDesiredCapabilities() {
         final DesiredCapabilities capabilities = new DesiredCapabilities();
+        HashMap<String, Object> ltOptions = new HashMap<String, Object>();
 
-        try (FileInputStream fis = new FileInputStream("src/test/resources/androidDevicesConfig.json")) {
+        try (FileInputStream fis = new FileInputStream("src/test/resources/androidLambdaTestConfig.json")) {
             final var objectMapper = new ObjectMapper();
             final JsonNode jsonNode = objectMapper.readValue(fis, JsonNode.class);
 
@@ -36,7 +42,9 @@ public class AndroidDriverManager {
 
                     deviceProperties.forEachRemaining(property -> {
                         if (!property.getKey().equals("id")) {
-                            capabilities.setCapability(property.getKey(), property.getValue().asText());
+
+                            ltOptions.put(property.getKey(), property.getValue().asText());
+                            //capabilities.setCapability(property.getKey(), property.getValue().asText());
                         }
                     });
                 }
@@ -46,7 +54,9 @@ public class AndroidDriverManager {
 
             commonProperties.forEachRemaining(commonProp -> {
                 if (!commonProp.getKey().equals("androidDevices")) {
-                    capabilities.setCapability(commonProp.getKey(),commonProp.getValue().asText());
+
+                    ltOptions.put(commonProp.getKey(), commonProp.getValue().asText());
+                    //capabilities.setCapability(commonProp.getKey(),commonProp.getValue().asText());
                 }
             });
 
@@ -54,12 +64,14 @@ public class AndroidDriverManager {
             throw new RuntimeException(e);
         }
 
+        capabilities.setCapability("lt:options", ltOptions);
 
         return capabilities;
     }
 
     public void createAndroidDriver () throws MalformedURLException {
-        appiumDriver = new AppiumDriver (new URL("http://localhost:4723/"), getDesiredCapabilities());
+        String hub = "https://" + userName + ":" + accessKey + gridURL;
+        appiumDriver = new AppiumDriver (new URL(hub), getDesiredCapabilities());
         setupDriverTimeouts();
     }
 

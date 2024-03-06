@@ -13,7 +13,7 @@ public class IOSTest extends BaseTest {
 
     @BeforeClass
     public void setUpTest() {
-        this.driver = iosDriverManager.getDriver();
+        this.driver = iosDriverManager.getIOSDriver();
     }
 
     @Test

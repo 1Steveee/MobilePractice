@@ -1,5 +1,5 @@
 {
-  "appium:app": "/Users/steve/Downloads/android.wdio.native.app.v1.0.8.apk",
+  "app": "lt://APP10160252091701161593570567",
   "appPackage": "com.wdiodemoapp",
   "appActivity": "com.wdiodemoapp.MainActivity",
   "appium:automationName": "UIAutomator2",
@@ -7,13 +7,17 @@
   "androidDevices": [
     {
       "id": "1",
+      "buildName": "Android Wdiodemo app Build",
+      "testName": "Wdiodemo android app tests on Samsung S22 5G",
       "appium:deviceName": "Pixel_4_XL_API_34",
+      "appium:avd": "Pixel_4_XL_API_34",
       "appium:platformVersion": "14"
     },
     {
       "id": "2",
-      "appium:deviceName": "Pixel_3_API_31",
-      "appium:platformVersion": "12"
+      "appium:deviceName": "Pixel_6_API_34",
+      "appium:avd": "Pixel_6_API_34",
+      "appium:platformVersion": "14"
     }
   ]
 }

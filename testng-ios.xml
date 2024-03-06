@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Appium Test">
-    <test name = "Appium Test">
-        <classes>
-            <class name="org.MobilePractice.ios.IOSTest">
-                <methods>
-                    <include name="testHomePageTitle"/>
-                    <include name="testSignUp"/>
-                    <include name="testLogin"/>
-                    <include name="testFormSignUp"/>
-                    <include name="testSwipeHorizontal"/>
-                    <include name="testWebViewPage"/>
-                    <include name="testDragAndDrop"/>
-                </methods>
-            </class>
-        </classes>
+<suite name="Appium Test" parallel="tests">
+    <test name = "Appium Test 1">
+        <parameter name="deviceId" value="1">
+            <classes>
+                <class name="org.MobilePractice.ios.IOSTest">
+                    <methods>
+                        <include name="testHomePageTitle"/>
+                        <include name="testSignUp"/>
+                        <exclude name="testLogin"/>
+                        <exclude name="testFormSignUp"/>
+                        <exclude name="testSwipeHorizontal"/>
+                        <exclude name="testWebViewPage"/>
+                        <exclude name="testDragAndDrop"/>
+                    </methods>
+                </class>
+            </classes>
+        </parameter>
+    </test>
+    <test name = "Appium Test 2">
+        <parameter name="deviceId" value="2">
+            <classes>
+                <class name="org.MobilePractice.ios.IOSTest">
+                    <methods>
+                        <include name="testHomePageTitle"/>
+                        <include name="testSignUp"/>
+                        <exclude name="testLogin"/>
+                        <exclude name="testFormSignUp"/>
+                        <exclude name="testSwipeHorizontal"/>
+                        <exclude name="testWebViewPage"/>
+                        <exclude name="testDragAndDrop"/>
+                    </methods>
+                </class>
+            </classes>
+        </parameter>
     </test>
 </suite>

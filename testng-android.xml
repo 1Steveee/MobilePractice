@@ -3,23 +3,7 @@
 <suite name="Appium Test">
     <test name = "Appium Test 1">
         <parameter name="deviceId" value="1">
-            <classes>
-                <class name="org.MobilePractice.android.AndroidTest">
-                    <methods>
-                        <include name="testHomePageTitle"/>
-                        <include name="testSignUp"/>
-                        <include name="testLogin"/>
-                        <exclude name="testSwipeLeft"/>
-                        <exclude name="testSwipeUp"/>
-                        <exclude name="testDragAndDrop"/>
-                        <exclude name="testCompleteForm"/>
-                    </methods>
-                </class>
-            </classes>
-        </parameter>
-    </test>
-    <test name = "Appium Test 2">
-        <parameter name="deviceId" value="2">
+
             <classes>
                 <class name="org.MobilePractice.android.AndroidTest">
                     <methods>

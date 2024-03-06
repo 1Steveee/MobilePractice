@@ -1,0 +1,20 @@
+{
+  "platformName": "iOS",
+  "app": "/Users/steve/Downloads/wdiodemoapp.app",
+  "automationName": "XCUITest",
+  "noReset":true,
+  "iosDevices": [
+    {
+      "id": "1",
+      "deviceName": "iPhone 15 Pro",
+      "platformVersion": "17.2",
+      "udid": "DC32DEBD-7E60-4EBB-8B9D-D86B46A54523"
+    },
+    {
+      "id": "2",
+      "deviceName": "iPhone 15",
+      "platformVersion": "17.2",
+      "udid": "41D2FC2E-277D-4BE9-9A40-DF11DCEEF5A3"
+    }
+  ]
+}

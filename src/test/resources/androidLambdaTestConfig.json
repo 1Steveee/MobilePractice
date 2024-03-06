@@ -1,0 +1,17 @@
+{
+  "app": "lt://APP1016043281709693942410384",
+  "isRealMobile": true,
+  "platformName": "android",
+  "w3c": true,
+  "androidDevices": [
+    {
+
+      "id": "1",
+      "name": "Android Pixel XL",
+      "buildName": "Android Wdiodemo app Build",
+      "testName": "Wdiodemo android app tests on Pixel 8",
+      "deviceName": "Galaxy S21 5G",
+      "platformVersion": "12"
+    }
+  ]
+}
